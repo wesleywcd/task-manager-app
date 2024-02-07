@@ -1,0 +1,17 @@
+<div *ngIf="loading && !tasks.length" class="loading-container">
+  <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+</div>
+<div *ngIf="tasks.length > 0">
+  <mat-list>
+    <mat-list-item *ngFor="let task of tasks">
+      <h3 mat-line>{{ task.title }}</h3>
+      <p mat-line>{{ task.description }}</p>
+      <p mat-line><strong>Priority:</strong> {{ task.priority }}</p>
+      <p mat-line><strong>Due Date:</strong> {{ task.dueDate | date }}</p>
+      <p mat-line><strong>Status:</strong> {{ task.status }}</p>
+    </mat-list-item>
+  </mat-list>
+  <div *ngIf="loadingMore" class="loading-more">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</div>

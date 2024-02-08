@@ -1,9 +1,11 @@
+<div id="plot"></div>
+
 <div *ngIf="loading && !tasks.length" class="loading-container">
   <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
 </div>
-<div *ngIf="tasks.length > 0">
+<div *ngIf="this.tasks.length > 0">
   <mat-list>
-    <mat-list-item *ngFor="let task of tasks">
+    <mat-list-item *ngFor="let task of this.tasks">
       <h3 mat-line>{{ task.title }}</h3>
       <p mat-line>{{ task.description }}</p>
       <p mat-line><strong>Priority:</strong> {{ task.priority }}</p>

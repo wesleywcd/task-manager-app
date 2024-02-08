@@ -38,6 +38,10 @@ export class DetailsComponent implements OnInit {
     return model;
   }
 
+  validForm() : boolean {
+    return (this.task?.title !== null);
+  }
+
   save(){
     let model = this.getModel();
 

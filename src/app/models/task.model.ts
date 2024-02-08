@@ -18,6 +18,4 @@ export class Task {
   public dueDate: Date = new Date();
   public status: Status = Status.Pending;
   public priority: Priority = Priority.Low;
-
-  constructor(){}
 }

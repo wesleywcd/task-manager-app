@@ -1,41 +1,40 @@
 <br>
 <h1>Task Details</h1>
 <hr>
-<mat-form-field>
-  <mat-label>Title: </mat-label>
-  <input matInput placeholder="Title">
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Due Date</mat-label>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-<br>
-<mat-form-field>
-  <mat-label>Priority</mat-label>
-  <mat-select>
-    <mat-option value="0">Low</mat-option>
-    <mat-option value="1">Medium</mat-option>
-    <mat-option value="2">High</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Status</mat-label>
-  <mat-select>
-    <mat-option value="0">Pending</mat-option>
-    <mat-option value="1">InProgress</mat-option>
-    <mat-option value="2">Completed</mat-option>
-    <mat-option value="3">Archived</mat-option>
-  </mat-select>
-</mat-form-field><br>
-<mat-form-field>
-  <mat-label>Description: </mat-label><br>
-  <textarea matInput placeholder="Description"></textarea>
-</mat-form-field>
-<section>
-  <div class="example-button-row">
-    <button mat-raised-button color="accent" (click)="this.goBack()">Back</button>
-    <button mat-raised-button color="primary" (click)="this.save()">Save</button>
+<form>
+  <div>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" [(ngModel)]="this.task.title" required>
   </div>
-</section>
+  <div>
+    <label for="dueDate">Due Date:</label>
+    <input type="date" id="dueDate" name="dueDate" [(ngModel)]="this.task.dueDate">
+  </div>
+  <div>
+    <label for="priority">Priority:</label>
+    <select id="priority" name="priority" [(ngModel)]="this.task.priority" required>
+      <option value="0">Low</option>
+      <option value="1">medium</option>
+      <option value="2">High</option>
+    </select>
+  </div>
+  <div>
+    <label for="status">Status:</label>
+    <select id="status" name="status" [(ngModel)]="this.task.status" required>
+      <option value="0">Pending</option>
+      <option value="1">In Progress</option>
+      <option value="2">Completed</option>
+      <option value="3">Archived</option>
+    </select>
+  </div>
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" [(ngModel)]="task.description"></textarea>
+  </div>
+  <section>
+    <div class="example-button-row">
+      <button mat-raised-button color="accent" (click)="this.goBack()">Back</button>
+      <button mat-raised-button color="primary" (click)="this.save()">Save</button>
+    </div>
+  </section>
+</form>

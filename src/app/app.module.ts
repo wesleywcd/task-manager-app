@@ -10,6 +10,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
+import { ToastrModule } from 'ngx-toastr';
+import { NotificationService } from './service/notification.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -24,9 +30,30 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatButtonModule,
+    MatTableModule,
+    MatSelectModule,
+    HttpClientModule,
+    ToastrModule.forRoot({
+        maxOpened: 10,
+        autoDismiss: true,
+        newestOnTop: true,
+        preventDuplicates: true,
+        closeButton: true,
+        timeOut: 5000,
+        extendedTimeOut: 5000,
+        positionClass: 'toast-top-right',
+        easing: 'ease-in-out',
+        easeTime: 300,
+        enableHtml: true,
+        progressBar: true,
+        tapToDismiss: true
+    })
   ],
-  providers: [],
+  providers: [
+    NotificationService,
+    MatSnackBar
+  ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

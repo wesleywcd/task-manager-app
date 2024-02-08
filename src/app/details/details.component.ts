@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../models/task.model';
 import { TaskService } from '../service/task.service';
 import { NotificationService } from '../service/notification.service';
@@ -10,17 +10,24 @@ import { NotificationService } from '../service/notification.service';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  task: Task | undefined;
+  task: Task = new Task();
   loading = false;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private taskService: TaskService,
     private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     let taskId = this.route.snapshot?.paramMap?.get('id');
-    this.loadTask(taskId);
+
+    if(taskId != '0')
+      this.loadTask(taskId);
+  }
+
+  goBack(){
+    this.router.navigate(['/tasks']);
   }
 
   loadTask(id: any) {
@@ -32,21 +39,18 @@ export class DetailsComponent implements OnInit {
       });
   }
 
-  getModel(): Task {
-    let model = new Task();
-
-    return model;
-  }
-
-  validForm() : boolean {
-    return (this.task?.title !== null);
+  validForm() {
+    if(this.task?.title !== null)
+      this.notificationService.showWarning('Title is mandatory');
+    else
+      this.save();
   }
 
   save(){
-    let model = this.getModel();
+    let model = this.task;
 
     this.taskService.post(model).subscribe((ret: any) => {
-      this.notificationService.showSuccess('', 'Task saved.');
+      this.notificationService.showSuccess('Task saved.');
     })
   }
 }

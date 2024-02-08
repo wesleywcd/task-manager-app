@@ -3,12 +3,15 @@ import { Task } from '../models/task.model';
 import { TaskService } from '../service/task.service';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import { ThemePalette } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { NotificationService } from '../service/notification.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
+
 export class ListComponent implements OnInit {
   public value = 50;
   public limit = 3;
@@ -21,13 +24,31 @@ export class ListComponent implements OnInit {
   public pieChartLabels: string[] = [];
   public color: ThemePalette = 'primary';
   public mode: ProgressSpinnerMode = 'determinate';
+  public displayedColumns: string[] = ['id', 'title', 'priority', 'status', 'actions'];
 
-  constructor(private taskService: TaskService) { }
+  constructor(
+    private router: Router,
+    private taskService: TaskService,
+    private notificationService: NotificationService) { }
 
   ngOnInit(): void {
-    debugger
     this.loadTasks();
-    console.log('ha');
+  }
+
+  newTask(){
+    this.router.navigate(['/details/0']);
+  }
+
+  detailTask(id: any){
+    this.router.navigate(['/details/' + id]);
+  }
+
+  deleteTask(id: any){
+    this.taskService.delete(id)
+      .subscribe(() => {
+        this.notificationService.showSuccess('Task deleted.');
+        this.loadTasks();
+      });
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -44,6 +65,7 @@ export class ListComponent implements OnInit {
     } else {
       this.loadingMore = true;
     }
+    // this.prepareChartData();
 
     this.taskService.getTasks(this.offset, this.limit)
       .subscribe(tasks => {
@@ -51,7 +73,6 @@ export class ListComponent implements OnInit {
           this.tasks.push(...tasks);
           this.loadingMore = false;
           this.loading = false;
-          this.prepareChartData();
         } else {
           this.tasks = tasks;
           this.loading = false;
@@ -65,18 +86,6 @@ export class ListComponent implements OnInit {
         this.pieChartLabels = Array.from(list.map((x)=> { return x.key}));
         this.pieChartData = Array.from(list.map((x)=> { return x.value}));
       });
-
-    var data = [{
-      values: this.pieChartData,
-      labels: this.pieChartLabels,
-      type: 'pie'
-    }];
-    var layout = {
-      height: 400,
-      width: 500
-    };
-
-    this.plotly.newPlot('divChart', data, layout);
   }
 
   bottomReached(): boolean {

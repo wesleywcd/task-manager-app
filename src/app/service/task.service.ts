@@ -8,7 +8,7 @@ import { Chart } from '../models/chart.model';
   providedIn: 'root'
 })
 export class TaskService {
-  private baseUrl = 'http://localhost:5108/api/tasks';
+  private baseUrl = 'http://localhost:5109/api/tasks';
 
   constructor(private http: HttpClient) { }
 

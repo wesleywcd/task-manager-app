@@ -23,20 +23,19 @@ export class TaskListComponent implements OnInit {
 
   loadTasks(){
     this.loading = true;
-    this.taskService.getTasks(0,3).subscribe((ret)=> {
+    this.taskService.getTasks(0,9).subscribe((ret)=> {
       this.tasks.push(...ret.map(e => new Task(e)));
       this.loading = false;
       this.offset += this.limit;
     });
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event) {
-    debugger
-    const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    const max = document.documentElement.scrollHeight;
-    if (pos === max && !this.loading) {
-      this.loadTasks();
+  onContainerScroll() {
+    const container = document.querySelector('.tasks-container');
+    if(container != null){
+      if (container.scrollHeight - container.scrollTop === container.clientHeight && !this.loading) {
+        this.loadTasks();
+      }
     }
   }
 

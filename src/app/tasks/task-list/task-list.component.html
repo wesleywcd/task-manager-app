@@ -4,12 +4,17 @@
 <button type="button" class="btn btn-secondary mb-2" [routerLink]="['/new']">New Task</button>
 
 <section>
-  <div *ngIf="tasks.length == 0" class="alert alert-warning" role="alert">
-    No tasks.
+  <div class="tasks-container" (scroll)="onContainerScroll()">
+    <div *ngIf="tasks.length == 0" class="alert alert-warning" role="alert">
+      No tasks.
+    </div>
+    <ul class="list-group" *ngIf="tasks.length > 0">
+      <li class="list-group-item" *ngFor="let task of tasks">
+        <app-task-list-item [taskItem]="task" class="task-item"></app-task-list-item>
+      </li>
+    </ul>
   </div>
-  <ul class="list-group" *ngIf="tasks.length > 0">
-    <li class="list-group-item" *ngFor="let task of tasks">
-      <app-task-list-item [taskItem]="task" class="task-item"></app-task-list-item>
-    </li>
-  </ul>
+  <div *ngIf="loading" class="loading-indicator">
+    <!-- Exibir ícone de carregamento -->
+  </div>
 </section>

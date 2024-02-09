@@ -1,0 +1,24 @@
+<div class="form-group form-check">
+  <input type="checkbox" class="form-check-input" checked="task.completed"/>
+</div>
+<div style="width: 100px;">
+  <strong>Title: </strong>
+  {{ task.title }}
+</div>
+<div>
+  <span style="margin: 0 50px 0 50px;">|</span><strong>Priority: </strong>
+  {{ task.priorityDescription }}
+</div>
+<div>
+  <span style="margin: 0 50px 0 50px">|</span><strong>Status: </strong>
+  {{ task.statusDescription }}
+  <span style="margin: 0 50px 0 50px">|</span>
+</div>
+<div [innerHTML]="task.description" class="task-item-description">
+</div>
+<div style="margin-right: 2px;">
+</div>
+  <button type="button" [routerLink]="['/edit', task.id]" class="btn btn-primary" style="width: 100px;">Edit</button>
+<div>
+  <button type="button" (click)="this.remove(task.id)" class="btn btn-danger" style="width: 100px;">Remove</button>
+</div>

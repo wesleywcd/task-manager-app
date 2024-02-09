@@ -1,12 +1,12 @@
+import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComponent } from './list/list.component';
-import { DetailsComponent } from './details/details.component';
+import { TaskFormComponent } from './tasks/task-form/task-form.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/tasks', pathMatch: 'full' },
-  { path: 'tasks', component: ListComponent },
-  { path: 'details/:id', component: DetailsComponent }
+  { path: '', component: TaskListComponent },
+  { path: 'new', component: TaskFormComponent },
+  { path: 'edit/:id', component: TaskFormComponent}
 ];
 
 @NgModule({

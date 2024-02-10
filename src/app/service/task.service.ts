@@ -11,8 +11,11 @@ import { environments } from 'src/environments/environments';
 export class TaskService {
   constructor(private http: HttpClient) { }
 
-  getTasks(offset: number, limit: number): Observable<Task[]> {
-    return this.http.get<Task[]>(`${environments.api}?offset=${offset}&limit=${limit}`);
+  getTasks(offset: number, limit: number, priority: number, status: number): Observable<Task[]> {
+    let filter = '';
+    if(priority > -1) filter+= `&priority=${priority}`;
+    if(status > -1) filter+= `&status=${status}`;
+    return this.http.get<Task[]>(`${environments.api}?offset=${offset}&limit=${limit}${filter}`);
   }
 
   getChart(): Observable<Chart[]> {

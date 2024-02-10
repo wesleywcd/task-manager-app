@@ -1,7 +1,29 @@
 <h2>Tasks</h2>
 <hr>
-
-<button type="button" class="btn btn-secondary mb-2" [routerLink]="['/new']">New Task</button>
+<div class="col-12 d-flex flex-row">
+  <div class="form-group col-4">
+    <label>Priority:</label>
+    <select id="priority" name="priority" [(ngModel)]="this.priority" class="form-control w-75" (change)="this.filter()">
+      <option value="-1">Select</option>
+      <option value="0">Low</option>
+      <option value="1">medium</option>
+      <option value="2">High</option>
+    </select>
+  </div>
+  <div class="form-group col-4">
+    <label>Status:</label>
+    <select id="status" name="status" [(ngModel)]="this.status" class="form-control w-75" (change)="this.filter()">
+      <option value="-1">Select</option>
+      <option value="0">Pending</option>
+      <option value="1">In Progress</option>
+      <option value="2">Completed</option>
+      <option value="3">Archived</option>
+    </select>
+  </div>
+  <div class="col-4 text-end">
+    <button type="button" class="btn btn-secondary mb-2" [routerLink]="['/new']">New Task</button>
+  </div>
+</div>
 
 <section>
   <div class="tasks-container" (scroll)="onContainerScroll()">

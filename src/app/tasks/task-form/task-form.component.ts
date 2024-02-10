@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Task } from 'src/app/models/task.model';
+import { NotificationService } from 'src/app/service/notification.service';
 import { TaskService } from 'src/app/service/task.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class TaskFormComponent implements OnInit {
   constructor(
     private router: Router,
     private taskService: TaskService,
-    private activatedRoute: ActivatedRoute) {}
+    private activatedRoute: ActivatedRoute
+    ) {}
 
   ngOnInit(): void {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -33,8 +35,7 @@ export class TaskFormComponent implements OnInit {
     model.priority = parseInt(this.task.priority.toString());
     model.status = parseInt(this.task.status.toString());
 
-    this.taskService.save(model).subscribe(() => {
-
+    this.taskService.save(model).subscribe((ret) => {
       this.router.navigate(['']);
     });
   }

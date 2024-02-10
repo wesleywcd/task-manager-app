@@ -18,7 +18,6 @@ export class Task {
   public dueDate: Date = new Date();
   public status: Status = Status.Pending;
   public priority: Priority = Priority.Low;
-  public completed: boolean = this.status == Status.Completed;
   public statusDescription: string = '';
   public priorityDescription: string = '';
 

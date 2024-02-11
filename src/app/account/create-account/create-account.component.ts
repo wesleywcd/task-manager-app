@@ -13,7 +13,8 @@ export class CreateAccountComponent implements OnInit {
     name: '',
     email: '',
     password: ''
-  }
+  };
+  loading: boolean = false;
 
   constructor(
     private router: Router,
@@ -26,7 +27,9 @@ export class CreateAccountComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     this.accountService.createAccount(this.account).subscribe((ret) => {
+      this.loading = false;
       this.notificationService.showSuccess('Login created.')
       this.router.navigate(['login']);
     });
